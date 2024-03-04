@@ -1,9 +1,10 @@
+import Header from "./components/header/Header";
+import HeaderExample from "./components/header/HeaderExample";
+
 function App() {
   return (
     <>
-      <div>
-        <h1 className="text-2xl">Coffee Finder</h1>
-      </div>
+      <HeaderExample />
     </>
   );
 }
