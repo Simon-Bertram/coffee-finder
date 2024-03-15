@@ -61,7 +61,7 @@ export default function HeaderExample() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white">
+    <header className="">
       <HeroImage />
 
       <nav

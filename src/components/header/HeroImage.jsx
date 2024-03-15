@@ -21,7 +21,7 @@ import desktopHeroImage2XlRetina from "../../assets/img/hero-desktop-2xl-@2x.jpg
 
 const HeroImage = () => {
   return (
-    <div className="w-full md:h-[500px]">
+    <div className="w-full bg-cover bg-center md:h-[600px] absolute -z-10">
       <picture>
         {/* Mobile images */}
         <source
@@ -59,8 +59,8 @@ const HeroImage = () => {
         {/* Fallback image */}
         <img
           src={mobileHeroImageSm}
-          alt="Hero Image"
-          className="object-cover w-full h-screen md:h-[500px]"
+          alt="A cup of coffee on a table surrounded by coffee beans."
+          className="object-cover w-full h-screen md:h-[700px]"
         />
       </picture>
     </div>
