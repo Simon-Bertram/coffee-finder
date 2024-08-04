@@ -111,10 +111,7 @@ function LanguageItem({ lang }: LanguageItemProps) {
     >
       <div className="badge badge-primary">{lang.code}</div>
       <div className="flex-auto">
-        <a href={lang.href} className="block font-semibold text-primary">
-          {lang.name}
-          <span className="absolute inset-0" />
-        </a>
+        <span className="block font-semibold text-primary">{lang.name}</span>
       </div>
     </DisclosureButton>
   );
@@ -132,7 +129,7 @@ function LanguagesDisclosure() {
       </DisclosureButton>
       <DisclosurePanel className="mt-2 space-y-2">
         {languages.map((lang) => (
-          <LanguageItem lang={lang} />
+          <LanguageItem key={lang.code} lang={lang} />
         ))}
       </DisclosurePanel>
     </Disclosure>
