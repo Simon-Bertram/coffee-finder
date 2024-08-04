@@ -15,6 +15,7 @@ function MobileMenuButton({ setMobileMenuOpen }: MobileMenuButtonProps) {
         type="button"
         onClick={() => setMobileMenuOpen(true)}
         className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-primary"
+        aria-label="Open main menu"
       >
         <span className="sr-only">Open main menu</span>
         <Bars3Icon aria-hidden="true" className="h-8 w-8" />

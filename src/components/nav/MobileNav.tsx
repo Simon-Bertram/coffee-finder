@@ -45,6 +45,7 @@ function CloseButton({ onClose }: CloseButtonProps) {
       type="button"
       onClick={onClose}
       className="-m-2.5 rounded-md p-3.5 text-primary"
+      aria-label="Close menu"
     >
       <span className="sr-only">Close menu</span>
       <XMarkIcon aria-hidden="true" className="h-6 w-6" />
@@ -55,25 +56,32 @@ function CloseButton({ onClose }: CloseButtonProps) {
 function LocationsDisclosure() {
   return (
     <Disclosure as="div" className="-mx-3">
-      <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-primary hover:bg-gray-50">
-        Locations
-        <ChevronDownIcon
-          aria-hidden="true"
-          className="h-5 w-5 flex-none group-data-[open]:rotate-180"
-        />
-      </DisclosureButton>
-      <DisclosurePanel className="mt-2 space-y-2">
-        {locations.map((location) => (
+      {({ open }) => (
+        <>
           <DisclosureButton
-            key={location.name}
-            as="a"
-            href={location.href}
-            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-primary hover:bg-gray-50"
+            className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-primary hover:bg-gray-50"
+            aria-expanded={open}
           >
-            {location.name}
+            Locations
+            <ChevronDownIcon
+              aria-hidden="true"
+              className={`h-5 w-5 flex-none ${open ? "rotate-180" : ""}`}
+            />
           </DisclosureButton>
-        ))}
-      </DisclosurePanel>
+          <DisclosurePanel className="mt-2 space-y-2">
+            {locations.map((location) => (
+              <DisclosureButton
+                key={location.name}
+                as="a"
+                href={location.href}
+                className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-primary hover:bg-gray-50"
+              >
+                {location.name}
+              </DisclosureButton>
+            ))}
+          </DisclosurePanel>
+        </>
+      )}
     </Disclosure>
   );
 }
@@ -87,6 +95,7 @@ function LanguageIcon() {
       strokeWidth={1.5}
       stroke="currentColor"
       className="size-6"
+      aria-hidden="true"
     >
       <path
         strokeLinecap="round"
@@ -105,11 +114,14 @@ function LanguageItem({ lang }: LanguageItemProps) {
   return (
     <DisclosureButton
       key={lang.code}
+      lang={lang.code}
       as="a"
       href={lang.href}
       className="group relative flex items-center gap-x-6 rounded-lg p-4 text-md leading-6 hover:bg-gray-50"
     >
-      <div className="badge badge-primary">{lang.code}</div>
+      <div className="badge badge-primary" aria-hidden="true">
+        {lang.code}
+      </div>
       <div className="flex-auto">
         <span className="block font-semibold text-primary">{lang.name}</span>
       </div>
@@ -120,18 +132,26 @@ function LanguageItem({ lang }: LanguageItemProps) {
 function LanguagesDisclosure() {
   return (
     <Disclosure as="div" className="-mx-3">
-      <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-primary hover:bg-gray-50">
-        <LanguageIcon />
-        <ChevronDownIcon
-          aria-hidden="true"
-          className="h-5 w-5 flex-none group-data-[open]:rotate-180"
-        />
-      </DisclosureButton>
-      <DisclosurePanel className="mt-2 space-y-2">
-        {languages.map((lang) => (
-          <LanguageItem key={lang.code} lang={lang} />
-        ))}
-      </DisclosurePanel>
+      {({ open }) => (
+        <>
+          <DisclosureButton
+            className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-primary hover:bg-gray-50"
+            aria-expanded={open}
+          >
+            Language
+            <LanguageIcon />
+            <ChevronDownIcon
+              aria-hidden="true"
+              className={`h-5 w-5 flex-none ${open ? "rotate-180" : ""}`}
+            />
+          </DisclosureButton>
+          <DisclosurePanel className="mt-2 space-y-2">
+            {languages.map((lang) => (
+              <LanguageItem key={lang.code} lang={lang} />
+            ))}
+          </DisclosurePanel>
+        </>
+      )}
     </Disclosure>
   );
 }

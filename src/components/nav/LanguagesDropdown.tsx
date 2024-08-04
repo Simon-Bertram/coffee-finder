@@ -11,7 +11,7 @@ export default function LanguagesDropdown() {
   return (
     <Popover className="relative">
       <PopoverButton className="flex items-center gap-x-1 text-lg font-semibold leading-6 text-primary">
-        <LanguageIcon />
+        <LanguageIcon aria-hidden="true" />
         <ChevronDownIcon
           aria-hidden="true"
           className="h-5 w-5 flex-none text-primary"
@@ -41,6 +41,7 @@ function LanguageIcon() {
       strokeWidth={1.5}
       stroke="currentColor"
       className="size-6"
+      aria-hidden="true"
     >
       <path
         strokeLinecap="round"
@@ -54,7 +55,9 @@ function LanguageIcon() {
 function LanguageItem({ lang }: LanguageItemProps) {
   return (
     <div className="group relative flex items-center gap-x-6 rounded-lg p-4 text-md leading-6 hover:bg-gray-50">
-      <div className="badge badge-primary">{lang.code}</div>
+      <div className="badge badge-primary" aria-hidden="true">
+        {lang.code}
+      </div>
       <div className="flex-auto">
         <a href={lang.href} className="block font-semibold text-primary">
           {lang.name}
