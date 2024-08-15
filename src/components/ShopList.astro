@@ -1,0 +1,13 @@
+---
+import ShopCard from "./ShopCard.astro";
+import { coffeeshops } from "../coffeeshopData";
+---
+
+<div>
+  <h2>Coffeeshop Results:</h2>
+  {
+    coffeeshops.map((shop) => (
+      <ShopCard coffeeshop={shop} buttonText="Discover More" />
+    ))
+  }
+</div>

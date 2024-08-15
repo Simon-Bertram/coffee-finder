@@ -26,19 +26,31 @@ const desktopImg = await getImage({
 });
 ---
 
-<div class={`hero ${className} h-screen md:h-[500px]`}>
-  <picture>
-    <source media="(max-width: 799px)" srcset={mobileImg.src} />
-    <source media="(min-width: 800px)" srcset={desktopImg.src} />
+<div class={`${className} relative h-screen md:h-[500px]`}>
+  <picture class="w-full h-full">
+    <source media="(max-width: 798px)" srcset={mobileImg.src} />
+    <source media="(min-width: 799px)" srcset={desktopImg.src} />
     <img
       src={desktopImg.src}
       alt={alt}
       class="w-full h-full object-cover md:object-contain md:object-center"
     />
   </picture>
-  <div class="hero-content text-center text-neutral-content">
-    <div class="max-w-md">
-      <slot />
-    </div>
-  </div>
+  <slot />
 </div>
+
+<style>
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  @media (min-width: 799px) {
+    img {
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+</style>

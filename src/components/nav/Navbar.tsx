@@ -31,7 +31,7 @@ export default function Navbar() {
     <header className="bg-transparent">
       <nav
         aria-label="Global"
-        className="navbar mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+        className="navbar flex container items-center justify-between p-6 lg:px-8"
       >
         <Logo />
         <MobileMenuButton setMobileMenuOpen={setMobileMenuOpen} />

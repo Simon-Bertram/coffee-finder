@@ -5,13 +5,15 @@ import mobileHeroImg from "../img/hero/hero-coffee-mobile.jpg";
 import desktopHeroImg from "../img/hero/hero-coffee-desktop.jpg";
 ---
 
-<section class="hero">
+<section>
   <HeroImage
     mobileImgUrl={mobileHeroImg}
     desktopImgUrl={desktopHeroImg}
     alt="A cup of coffee surrounded by coffee beans"
     className="hero-image"
   >
-    <SearchBar />
+    <div class="absolute inset-0 flex items-center justify-center">
+      <SearchBar client:load />
+    </div>
   </HeroImage>
 </section>
