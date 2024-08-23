@@ -10,8 +10,10 @@ export default function DesktopNav() {
       aria-label="Main"
     >
       <LocationsDropdown />
+      <a href="about" className="block font-semibold text-primary">
+        About
+      </a>
       <LanguagesDropdown />
-      {/* Other navigation links */}
     </PopoverGroup>
   );
 }

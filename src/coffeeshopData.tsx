@@ -1,50 +1,51 @@
 export interface CoffeeShop {
   id: number;
-  name: string;
-  address: string;
-  coordinates: {
+  attributes: {
+    name: string;
+    address: string;
     plusCode: string;
-    latitude: number;
-    longitude: number;
+    coordinates: {
+      latitude: number;
+      longitude: number;
+    };
+    phoneNumber: string;
+    website: string;
+    openingHours: {
+      monday: string;
+      tuesday: string;
+      wednesday: string;
+      thursday: string;
+      friday: string;
+      saturday: string;
+      sunday: string;
+    };
+    description: string;
+    images: string[];
+    rating: number;
+    hasWifi: boolean;
+    isDogFriendly: boolean;
+    hasOutdoorSeating: boolean;
+    indoorSeatingCapacity: number;
+    hasTakeaway: boolean;
+    coffeeTypes: string[];
+    hasBeansForSale: boolean;
+    nonCoffeeBeverages: string[];
+    foodOptions: {
+      hasPastries: boolean;
+      hasCookedFood: boolean;
+    };
+    hasVeganOptions: boolean;
+    hasGlutenFreeOptions: boolean;
+    paymentMethods: string[];
+    parking: string;
+    accessibilityFeatures: string[];
+    noiseLevel: string;
+    isStudyFriendly: boolean;
+    hasPowerOutlets: boolean;
+    hasLoyaltyProgram: boolean;
+    hasEvents: boolean;
+    roastsOwnCoffee: boolean;
   };
-  phoneNumber: string;
-  website: string;
-  openingHours: {
-    monday: string;
-    tuesday: string;
-    wednesday: string;
-    thursday: string;
-    friday: string;
-    saturday: string;
-    sunday: string;
-  };
-  description: string;
-  images: string[];
-  rating: number;
-  priceRange: string;
-  hasWifi: boolean;
-  isDogFriendly: boolean;
-  hasOutdoorSeating: boolean;
-  indoorSeatingCapacity: number;
-  hasTakeaway: boolean;
-  coffeeTypes: string[];
-  hasBeansForSale: boolean;
-  nonCoffeeBeverages: string[];
-  foodOptions: {
-    hasPastries: boolean;
-    hasCookedFood: boolean;
-  };
-  hasVeganOptions: boolean;
-  hasGlutenFreeOptions: boolean;
-  paymentMethods: string[];
-  parking: string;
-  accessibilityFeatures: string[];
-  noiseLevel: string;
-  isStudyFriendly: boolean;
-  hasPowerOutlets: boolean;
-  hasLoyaltyProgram: boolean;
-  hasEvents: boolean;
-  roastsOwnCoffee: boolean;
 }
 
 export const coffeeshops: CoffeeShop[] = [
@@ -52,8 +53,8 @@ export const coffeeshops: CoffeeShop[] = [
     id: 1,
     name: "Beacon Coffee",
     address: "28A High St, Falmouth TR11 2AD",
+    plusCode: "5W4H+MF Falmouth",
     coordinates: {
-      plusCode: "5W4H+MF Falmouth",
       latitude: 50.1566829,
       longitude: -5.0713304,
     },
@@ -76,7 +77,6 @@ export const coffeeshops: CoffeeShop[] = [
       "./img/shops/machines.jpg",
     ],
     rating: 4.9,
-    priceRange: "££",
     hasWifi: true,
     isDogFriendly: true,
     hasOutdoorSeating: false,
@@ -106,8 +106,8 @@ export const coffeeshops: CoffeeShop[] = [
     id: 2,
     name: "Gylly Beach Cafe",
     address: "Gyllyngvase Beach, Cliff Road, Falmouth, TR11 4PA",
+    plusCode: "5W4H+MF Falmouth",
     coordinates: {
-      plusCode: "5W4H+MF Falmouth",
       latitude: 50.1448283,
       longitude: -5.0680058,
     },
@@ -129,7 +129,6 @@ export const coffeeshops: CoffeeShop[] = [
       "https://images.squarespace-cdn.com/content/v1/5ef87aa77cf43c797a7d9d6c/882c52ff-1dc7-4ca8-a955-e0f11af8dbdb/Gyllyngvase-Beachlow-1024x400.jpg?format=2500w",
     ],
     rating: 4.7,
-    priceRange: "£££",
     hasWifi: false,
     isDogFriendly: true,
     hasOutdoorSeating: true,

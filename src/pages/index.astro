@@ -2,19 +2,20 @@
 import Layout from "../layouts/Layout.astro";
 import ShopCard from "../components/ShopCard.astro";
 import { coffeeshops } from "../coffeeshopData";
+import ShopList from "../components/ShopList.astro";
 ---
 
 <Layout title="Welcome to Astro.">
   <main>
     <div class="container my-12">
-      <h1 class="text-xl mb-8">Coffeeshop Results</h1>
-      <div class="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
+      <ShopList />
+      <!-- <div class="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
         {
           coffeeshops.map((coffeeshop) => (
             <ShopCard coffeeshop={coffeeshop} buttonText="Visit Website" />
           ))
         }
-      </div>
+      </div> -->
     </div>
   </main>
 </Layout>

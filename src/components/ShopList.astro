@@ -1,13 +1,24 @@
 ---
+import fetchApi from "../lib/strapi";
+import type Coffeeshop from "../interfaces/coffeeshop";
 import ShopCard from "./ShopCard.astro";
-import { coffeeshops } from "../coffeeshopData";
+
+const coffeeshops = await fetchApi<Coffeeshop[]>({
+  endpoint: "coffeeshops",
+  wrappedByKey: "data",
+  query: {
+    populate: "*", // This populates all relations, including media
+  },
+});
 ---
 
 <div>
-  <h2>Coffeeshop Results:</h2>
-  {
-    coffeeshops.map((shop) => (
-      <ShopCard coffeeshop={shop} buttonText="Discover More" />
-    ))
-  }
+  <h1 class="text-2xl mb-8">Coffeeshop Results:</h1>
+  <div class="flex flex-wrap gap-12 justify-center">
+    {
+      coffeeshops.map((shop) => (
+        <ShopCard coffeeshop={shop} buttonText="Discover More" />
+      ))
+    }
+  </div>
 </div>
