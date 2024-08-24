@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import type Coffeeshop from "../interfaces/coffeeshop";
 import defaultImage from "../img/default-espresso.jpg";
+import Rating from "./Ratings.astro";
 
 interface Props {
   coffeeshop: Coffeeshop;
@@ -52,6 +53,9 @@ const imageUrl = getImageUrl(coffeeshop);
   </figure>
   <div class="card-body">
     <h2 class="card-title">{coffeeshop.attributes.name}</h2>
+    <div class="flex align-middle">
+      <Rating rating={coffeeshop.attributes.rating ?? 0} />
+    </div>
     <p>{coffeeshop.attributes.description}</p>
     <div class="card-actions justify-end">
       <button class="btn btn-primary">{buttonText}</button>
