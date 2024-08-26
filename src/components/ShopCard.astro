@@ -10,6 +10,7 @@ interface Props {
 }
 
 const { coffeeshop, buttonText } = Astro.props;
+const { attributes } = coffeeshop;
 
 // Function to get the image URL or default
 function getImageUrl(coffeeshop: Coffeeshop) {
@@ -28,7 +29,7 @@ function getImageUrl(coffeeshop: Coffeeshop) {
 const imageUrl = getImageUrl(coffeeshop);
 ---
 
-<div class="card glass w-96">
+<div class="card shop-card glass w-96" data-town={attributes.town}>
   <figure class="w-full">
     {
       imageUrl === defaultImage ? (
@@ -53,7 +54,9 @@ const imageUrl = getImageUrl(coffeeshop);
   </figure>
   <div class="card-body">
     <h2 class="card-title">{coffeeshop.attributes.name}</h2>
-    <div class="flex align-middle">
+
+    <div class="flex items-center justify-between">
+      <div class="badge text-sm">{coffeeshop.attributes.town}</div>
       <Rating rating={coffeeshop.attributes.rating ?? 0} />
     </div>
     <p>{coffeeshop.attributes.description}</p>

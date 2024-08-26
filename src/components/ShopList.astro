@@ -10,6 +10,15 @@ const coffeeshops = await fetchApi<Coffeeshop[]>({
     populate: "*", // This populates all relations, including media
   },
 });
+
+// Get unique towns for the filter
+const towns = [
+  "All",
+  ...new Set(coffeeshops.map((shop) => shop.attributes.town)),
+];
+
+// Get the initial selected town from URL parameters
+const initialSelectedTown = Astro.url.searchParams.get("town") || "All";
 ---
 
 <div>
@@ -22,3 +31,49 @@ const coffeeshops = await fetchApi<Coffeeshop[]>({
     }
   </div>
 </div>
+
+<script define:vars={{ coffeeshops, initialSelectedTown }}>
+  function filterShopsByTown(selectedTown) {
+    // get the shop cards
+    const shopCards = document.querySelectorAll(".shop-card");
+    // loop through each card
+    shopCards.forEach((card) => {
+      // get the town data attribute
+      const cardTown = card.getAttribute("data-town");
+      // if the selected town is "All" or the card town matches the selected town
+      if (selectedTown === "All" || cardTown === selectedTown) {
+        // show the card
+        card.style.display = "block";
+      } else {
+        // hide the card
+        card.style.display = "none";
+      }
+    });
+  }
+
+  // Function to update the URL with the selected town
+  function updateUrl(selectedTown) {
+    // get the current URL
+    const url = new URL(window.location.href);
+    // update the search parameter
+    url.searchParams.set("town", selectedTown);
+    // update the URL
+    window.history.pushState({ path: url.href }, "", url.href);
+  }
+
+  // Initial filter on load
+  filterShopsByTown(initialSelectedTown);
+
+  // Listen for custom event from LocationsDropdown
+  document.addEventListener("townSelected", (event) => {
+    const selectedTown = event.detail;
+    filterShopsByTown(selectedTown);
+    updateUrl(selectedTown);
+  });
+
+  // Listen for popstate event (back/forward button)
+  window.addEventListener("popstate", () => {
+    const selectedTown = Astro.url.searchParams.get("town") || "All";
+    filterShopsByTown(selectedTown);
+  });
+</script>
