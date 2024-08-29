@@ -29,7 +29,10 @@ function getImageUrl(coffeeshop: Coffeeshop) {
 const imageUrl = getImageUrl(coffeeshop);
 ---
 
-<div class="card shop-card glass w-96" data-town={attributes.town}>
+<div
+  class="card shop-card glass w-96"
+  data-town={attributes.town.trim().toLowerCase()}
+>
   <figure class="w-full">
     {
       imageUrl === defaultImage ? (

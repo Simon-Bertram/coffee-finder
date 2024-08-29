@@ -34,30 +34,23 @@ const initialSelectedTown = Astro.url.searchParams.get("town") || "All";
 
 <script define:vars={{ coffeeshops, initialSelectedTown }}>
   function filterShopsByTown(selectedTown) {
-    // get the shop cards
+    console.log("filtering shops for town: ", selectedTown);
     const shopCards = document.querySelectorAll(".shop-card");
-    // loop through each card
     shopCards.forEach((card) => {
-      // get the town data attribute
       const cardTown = card.getAttribute("data-town");
-      // if the selected town is "All" or the card town matches the selected town
       if (selectedTown === "All" || cardTown === selectedTown) {
-        // show the card
         card.style.display = "block";
       } else {
-        // hide the card
         card.style.display = "none";
       }
     });
   }
 
-  // Function to update the URL with the selected town
   function updateUrl(selectedTown) {
-    // get the current URL
+    console.log("Updating URL for town: ", selectedTown);
     const url = new URL(window.location.href);
-    // update the search parameter
     url.searchParams.set("town", selectedTown);
-    // update the URL
+    console.log("New URL:", url.href);
     window.history.pushState({ path: url.href }, "", url.href);
   }
 
@@ -66,14 +59,21 @@ const initialSelectedTown = Astro.url.searchParams.get("town") || "All";
 
   // Listen for custom event from LocationsDropdown
   document.addEventListener("townSelected", (event) => {
-    const selectedTown = event.detail;
+    console.log("Town selected event received:", event);
+    console.log("Event detail:", event.detail);
+
+    // Extract the town name from the object
+    const selectedTown = event.detail.town;
+
+    console.log("selectedTown: ", selectedTown);
     filterShopsByTown(selectedTown);
     updateUrl(selectedTown);
   });
 
   // Listen for popstate event (back/forward button)
   window.addEventListener("popstate", () => {
-    const selectedTown = Astro.url.searchParams.get("town") || "All";
+    const selectedTown =
+      new URL(window.location.href).searchParams.get("town") || "All";
     filterShopsByTown(selectedTown);
   });
 </script>

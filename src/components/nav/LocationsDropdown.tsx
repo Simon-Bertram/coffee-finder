@@ -5,7 +5,9 @@ import type { CoffeeLocation } from "../../constants";
 import { locations } from "../../constants";
 
 // Whitelist of valid location names
-const ALLOWED_LOCATIONS = new Set(locations.map((location) => location.name));
+const ALLOWED_LOCATIONS = new Set(
+  locations.map((location) => location.name.trim().toLowerCase())
+);
 
 interface LocationItemProps {
   location: CoffeeLocation;
@@ -52,17 +54,19 @@ export default function LocationsDropdown() {
 }
 
 function LocationItem({ location, onSelect }: LocationItemProps) {
-  const handleSelect = () => {
-    if (ALLOWED_LOCATIONS.has(location.name)) {
-      onSelect && onSelect(location.name);
+  const handleSelect = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const trimmedName = location.name.trim().toLowerCase();
+    if (ALLOWED_LOCATIONS.has(trimmedName)) {
+      onSelect && onSelect(trimmedName);
       // Dispatch custom event with validated location
       document.dispatchEvent(
         new CustomEvent("townSelected", {
-          detail: { town: location.name },
+          detail: { town: trimmedName },
         })
       );
     } else {
-      console.error(`Invalid location: ${location.name}`);
+      console.error(`Invalid location: ${trimmedName}`);
     }
   };
 
@@ -72,16 +76,7 @@ function LocationItem({ location, onSelect }: LocationItemProps) {
         <a
           href={`?town=${encodeURIComponent(location.name)}`}
           className="block font-semibold text-primary"
-          onClick={(e) => {
-            e.preventDefault();
-            onSelect && onSelect(location.name);
-            // Dispatch custom event with the selected location
-            document.dispatchEvent(
-              new CustomEvent("townSelected", {
-                detail: { town: location.name },
-              })
-            );
-          }}
+          onClick={handleSelect}
         >
           {location.name}
           <span className="absolute inset-0" />
