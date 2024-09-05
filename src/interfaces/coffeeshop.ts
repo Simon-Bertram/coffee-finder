@@ -1,3 +1,16 @@
+export interface DayHours {
+  id: number;
+  dayName: string;
+  openTime: string | null;
+  closeTime: string | null;
+  isClosed: boolean | null;
+}
+
+export interface RegularOpeningHours {
+  id: number;
+  daysHours: DayHours[];
+}
+
 export default interface Coffeeshop {
   id: number;
   attributes: {
@@ -57,10 +70,7 @@ export default interface Coffeeshop {
         };
       }> | null;
     };
-    regularOpeningHours?: {
-      id: number;
-      [key: string]: any; // Allow any structure for opening hours
-    };
+    regularOpeningHours?: RegularOpeningHours;
     specialHolidayHours?: any[]; // Replace 'any' with a more specific type if available
   };
 }

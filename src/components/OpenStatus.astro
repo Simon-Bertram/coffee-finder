@@ -1,0 +1,62 @@
+---
+interface Props {
+  regularOpeningHours: {
+    daysHours: Array<{
+      dayName: string;
+      openTime: string;
+      closeTime: string;
+      isClosed: boolean | null;
+    }>;
+  };
+}
+
+const { regularOpeningHours } = Astro.props;
+
+function isCurrentlyOpen(
+  regularOpeningHours: Props["regularOpeningHours"]
+): boolean {
+  const now = new Date();
+  const currentDay = now
+    .toLocaleString("en-UK", { weekday: "long" })
+    .toLowerCase();
+  // log to check currentDay
+  // console.log("currentDay:", currentDay);
+  const currentTime = now.toLocaleTimeString("en-UK", { hour12: false });
+  // log to check currentTime
+  // console.log("currentTime:", currentTime);
+
+  // log to check regularOpeningHours daysHours
+  console.log(
+    "regularOpeningHours:",
+    JSON.stringify(regularOpeningHours, null, 2)
+  );
+
+  const todayHours = regularOpeningHours.daysHours.find(
+    (day) => day.dayName.toLowerCase() === currentDay
+  );
+  if (!todayHours || todayHours.isClosed) {
+    return false;
+  }
+
+  const openTime = todayHours.openTime;
+  const closeTime = todayHours.closeTime;
+
+  if (!openTime || !closeTime) {
+    return false;
+  }
+
+  return currentTime >= openTime && currentTime < closeTime;
+}
+
+const open = isCurrentlyOpen(regularOpeningHours);
+---
+
+<div>
+  {
+    open ? (
+      <div class="text-green-500">Open</div>
+    ) : (
+      <div class="text-red-500">Closed.</div>
+    )
+  }
+</div>

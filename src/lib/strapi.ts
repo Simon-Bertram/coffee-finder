@@ -1,6 +1,8 @@
 interface Props {
   endpoint: string;
-  query?: Record<string, string>;
+  query?: {
+    [key: string]: string | number | boolean | object;
+  };
   wrappedByKey?: string;
   wrappedByList?: boolean;
 }
@@ -27,7 +29,11 @@ export default async function fetchApi<T>({
 
   if (query) {
     Object.entries(query).forEach(([key, value]) => {
-      url.searchParams.append(key, value);
+      if (typeof value === "object") {
+        url.searchParams.append(key, JSON.stringify(value));
+      } else {
+        url.searchParams.append(key, String(value));
+      }
     });
   }
   const res = await fetch(url.toString());
@@ -41,5 +47,6 @@ export default async function fetchApi<T>({
     data = data[0];
   }
 
+  console.log("Raw API response:", JSON.stringify(data, null, 2));
   return data as T;
 }

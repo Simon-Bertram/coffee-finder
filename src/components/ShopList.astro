@@ -1,15 +1,19 @@
 ---
 import fetchApi from "../lib/strapi";
 import type Coffeeshop from "../interfaces/coffeeshop";
+import type { RegularOpeningHours, DayHours } from "../interfaces/coffeeshop";
 import ShopCard from "./ShopCard.astro";
 
 const coffeeshops = await fetchApi<Coffeeshop[]>({
   endpoint: "coffeeshops",
   wrappedByKey: "data",
   query: {
-    populate: "*", // This populates all relations, including media
+    populate: "*",
   },
 });
+
+// Check the coffeeshop data structure
+console.log("Full coffeeshop data:", coffeeshops[0]);
 
 // Get unique towns for the filter
 const towns = [
